@@ -2,8 +2,7 @@
 	Aggressiveness-Implicit Association Test (Agg-IAT) 攻击性内隐联想测验
 
 
-/showsummaryfeedback:				设置参数 showsummaryfeedback = true 表明在实验结束时向被试展示其简略的反馈信息（默认）
-									设置参数 showsummaryfeedback = false 表明不向被试展示其反馈信息
+/设置参数 showsummaryfeedback = true 表明在实验结束时向被试展示其简略的反馈信息（默认）
 <values>
 /showsummaryfeedback = true
 </values>
