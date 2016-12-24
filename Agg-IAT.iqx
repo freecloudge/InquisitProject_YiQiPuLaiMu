@@ -1,22 +1,6 @@
 ﻿
 	Aggressiveness-Implicit Association Test (Agg-IAT) 攻击性内隐联想测验
 
-实验背景：
-内隐联想测验(Greenwald, McGhee, & Schwartz, 1998)是一种被广泛使用的认知行为范式。通过在简单分类任务中采用延迟措施，测量人们思维中概念间的自动（内隐）关联的强度。
-该强度可由“不一致”配对与“一致”配对的标准化均值差异（d分数）测量(Greenwald, Nosek, & Banaji, 2003)。
-d分数越高，“假设一致”配对间的关联程度越强。负d分数则表示“假设不一致”配对的关联程度相较于“假设一致”更强。
-
-Inquisit使用改进后的评分算法计算d分数，如Greenwald等人(2003)所述。
-本实验通过要求被试根据建议纠正其按键反应来处理错误试验。
-
-使用此程序获得的D分数：
-正d分数：表明“自我-攻击的”和“他人-平和的”之间的关联强度比“自我-平和的”和“他人-攻击的”之间的关联强度更强。
-负d分数：表明“自我-平和的”和“他人-攻击的”之间的关联强度比“自我-攻击的”和“他人-平和的”之间的关联强度更强。
-
-实验文献：
-
-Erle, T. M., Barth, N., Kälke, F., Duttler, G., Lange, H., & Petko, A., et al. (2016). 
-Are target-shooters more aggressive than the general population?. Aggressive Behavior.
 
 /showsummaryfeedback:				设置参数 showsummaryfeedback = true 表明在实验结束时向被试展示其简略的反馈信息（默认）
 									设置参数 showsummaryfeedback = false 表明不向被试展示其反馈信息
