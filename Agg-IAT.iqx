@@ -1,0 +1,576 @@
+﻿
+	Aggressiveness-Implicit Association Test (Agg-IAT) 攻击性内隐联想测验
+
+实验背景：
+内隐联想测验(Greenwald, McGhee, & Schwartz, 1998)是一种被广泛使用的认知行为范式。通过在简单分类任务中采用延迟措施，测量人们思维中概念间的自动（内隐）关联的强度。
+该强度可由“不一致”配对与“一致”配对的标准化均值差异（d分数）测量(Greenwald, Nosek, & Banaji, 2003)。
+d分数越高，“假设一致”配对间的关联程度越强。负d分数则表示“假设不一致”配对的关联程度相较于“假设一致”更强。
+
+Inquisit使用改进后的评分算法计算d分数，如Greenwald等人(2003)所述。
+本实验通过要求被试根据建议纠正其按键反应来处理错误试验。
+
+使用此程序获得的D分数：
+正d分数：表明“自我-攻击的”和“他人-平和的”之间的关联强度比“自我-平和的”和“他人-攻击的”之间的关联强度更强。
+负d分数：表明“自我-平和的”和“他人-攻击的”之间的关联强度比“自我-攻击的”和“他人-平和的”之间的关联强度更强。
+
+实验文献：
+
+Erle, T. M., Barth, N., Kälke, F., Duttler, G., Lange, H., & Petko, A., et al. (2016). 
+Are target-shooters more aggressive than the general population?. Aggressive Behavior.
+
+/showsummaryfeedback:				设置参数 showsummaryfeedback = true 表明在实验结束时向被试展示其简略的反馈信息（默认）
+									设置参数 showsummaryfeedback = false 表明不向被试展示其反馈信息
+<values>
+/showsummaryfeedback = true
+</values>
+
+
+<item targetAlabel>
+/1 = "aggressive"
+</item>
+
+<item targetA>
+/1 = "hit"
+/2 = "kick"
+/3 = "violence"
+/4 = "brutal"
+</item>
+
+<item targetBlabel>
+/1 = "peaceful"
+</item>
+
+<item targetB>
+/1 = "forgive"
+/2 = "mediate"
+/3 = "conciliation"
+/4 = "harmonic"
+</item>
+
+<item attributeAlabel>
+/1 = "self"
+</item>
+
+<item attributeA>
+/1 = "I"
+/2 = "me"
+/3 = "my"
+/4 = "mine"
+</item>
+
+<item attributeBlabel>
+/1 = "others"
+</item>
+
+<item attributeB>
+/1 = "he"
+/2 = "she"
+/3 = "theirs"
+/4 = "yours"
+</item>
+
+
+<defaults>
+/ fontstyle = ("Arial", 3.5%)
+/ screencolor = (0,0,0)
+/ txbgcolor = (0,0,0)
+/ txcolor = (255, 255, 255)
+/ minimumversion = "4.0.0.0"
+/ canvasaspectratio = (4, 3)
+</defaults>
+
+
+--得分（自动更新）--
+/completed:					0 = 脚本未完成; 1 = 脚本完成(所有条件均运行)
+
+/ sum1a:					记录第一个兼容block 1A中正确反应的反应时长总和(延迟时长<= 10000ms)
+								注意: 根据实验设计要求，所有trial的最终反应必须是正确的（无论初始反应是否正确）
+/ sum2a:					记录第一个不兼容block 2A中正确反应的反应时长总和(延迟时长<= 10000ms)
+								注意: 根据实验设计要求，所有trial的最终反应必须是正确的（无论初始反应是否正确） 
+/ sum1b:					记录第二个兼容block 1B中正确反应的反应时长总和(延迟时长<= 10000ms)
+								注意: 根据实验设计要求，所有trial的最终反应必须是正确的（无论初始反应是否正确）
+/ sum2b:					记录第二个不兼容block 2B中正确反应的反应时长总和(延迟时长<= 10000ms)
+								注意: 根据实验设计要求，所有trial的最终反应必须是正确的（无论初始反应是否正确）
+/ n1a:						统计第一个兼容block 1A中的试次次数（除了第一个）
+/ n2a:						统计第一个不兼容block 2A中的试次次数（除了第一个）
+/ n1b:						统计第二个兼容block 1B中的试次次数（除了第一个）
+/ n2b:						统计第二个不兼容block 2B中的试次次数（除了第一个）
+/ ss1a:						记录第一个兼容block 1A中正确反应的反应时长的平方和(延迟时长<= 10000ms) 
+/ ss2a						记录第一个不兼容block 2A中正确反应的反应时长的平方和(延迟时长<= 10000ms)
+/ ss1b:						记录第二个兼容block 1B中正确反应的反应时长的平方和(延迟时长<= 10000ms) 
+/ ss2b:						记录第二个不兼容block 2B中正确反应的反应时长的平方和(延迟时长<= 10000ms) 
+/ magnitude:				记录内隐偏好的程度大小: "几乎没有", "轻微", "中等", "强烈"
+/ n_correct:				记录测验试次（用于计算d分数的试次）中初始反应正确的试次次数
+
+<values>
+/ completed = 0
+/ sum1a = 0
+/ sum2a = 0
+/ sum1b = 0
+/ sum2b = 0
+/ n1a = 0
+/ n2a = 0
+/ n1b = 0
+/ n2b = 0
+/ ss1a = 0
+/ ss2a = 0
+/ ss1b = 0
+/ ss2b = 0
+/ magnitude = "unknown"
+/ n_correct = 0
+</values>
+
+* 1 表示不兼容, 2 表示兼容
+* A 表示第一个block, B 表示第二个block
+
+/ m1a:					第一个兼容block中正确反应的平均延迟时长 
+/ m2a:					第一个不兼容block中正确反应的平均延迟时长
+/ m1b:					第二个兼容block中正确反应的平均延迟时长
+/ m2b:					第二个不兼容block中正确反应的平均延迟时长
+/ sd1a:					第一个兼容block中正确反应的延迟时长的标准差 
+/ sd2a					第一个不兼容block中正确反应的延迟时长的标准差
+/ sd1b:					第二个兼容block中正确反应的延迟时长的标准差
+/ sd2b:					第二个不兼容block中正确反应的延迟时长的标准差
+/ sda					第一个block（1A及2A）中延迟时长的标准差
+/ sdb 					第二个block（1B及2B）中延迟时长的标准差
+/ da:					第一个block（1A及2A）的d分数		
+/ db:					第二个block（1B及2B）的d分数
+/ d:					总d分数
+/ preferred:			记录优选目标类别
+/ notpreferred :		记录非优选目标类别
+/ percentcorrect:       计算测验试次（用于计算d分数的试次）中初始反应的总正确率
+
+<expressions>
+/ m1a = values.sum1a / values.n1a
+/ m2a = values.sum2a / values.n2a
+/ m1b = values.sum1b / values.n1b
+/ m2b = values.sum2b / values.n2b
+/ sd1a = sqrt((values.ss1a - (values.n1a * (expressions.m1a * expressions.m1a))) / (values.n1a - 1))
+/ sd2a = sqrt((values.ss2a - (values.n2a * (expressions.m2a * expressions.m2a))) / (values.n2a - 1))
+/ sd1b = sqrt((values.ss1b - (values.n1b * (expressions.m1b * expressions.m1b))) / (values.n1b - 1))
+/ sd2b = sqrt((values.ss2b - (values.n2b * (expressions.m2b * expressions.m2b))) / (values.n2b - 1))
+/ sda = sqrt((((values.n1a - 1) * (expressions.sd1a * expressions.sd1a) + (values.n2a - 1) * (expressions.sd2a * expressions.sd2a)) + ((values.n1a + values.n2a) * ((expressions.m1a - expressions.m2a) * (expressions.m1a - expressions.m2a)) / 4) ) / (values.n1a + values.n2a - 1) )
+/ sdb = sqrt((((values.n1b - 1) * (expressions.sd1b * expressions.sd1b) + (values.n2b - 1) * (expressions.sd2b * expressions.sd2b)) + ((values.n1b + values.n2b) * ((expressions.m1b - expressions.m2b) * (expressions.m1b - expressions.m2b)) / 4) ) / (values.n1b + values.n2b - 1) )
+/ da = (m2a - m1a) / expressions.sda
+/ db = (m2b - m1b) / expressions.sdb
+/ d = (expressions.da + expressions.db) / 2
+/ preferred = "unknown"
+/ notpreferred = "unknown"
+/ percentcorrect = (values.n_correct/ (values.n1a + values.n1b + values.n2a + values.n2b)) * 100
+</expressions>
+
+
+--数据（原始数据） data--
+date/time/group/subject:			记录指定脚本运行时的日期、时间的内置变量
+									被试 - 和组别
+
+										注意: group1/group2 需要平衡顺序效应
+
+blockcode:							当前block的名称
+blocknum:							当前block的编号
+trialcode:							当前trial的名称
+trialnum:							当前trial的编号
+response:							最终trial的反应(按键的扫描码)
+										注意: 根据实验设计，脚本记录最终的正确反应
+correct:							初始反应的正确率
+										0 = 初始反应不正确且需要纠正
+										1 = 初始反应正确
+latency:							最终（正确）反应的延迟
+stimulusnumber:						当前刺激的编号
+stimulusitem:						当前呈现的item
+expressions.da:						第一个block的d分数
+expressions.db:						第二个block的d分数
+expressions.d:						总d分数
+/ percentcorrect:       			测验试次（用于计算d分数的试次）中初始反应的总正确率
+
+<data>
+/ file = "IAT_rawdata.iqdat"
+/ columns = [date, time, group, subject, blockcode, blocknum, trialcode, trialnum, response, correct, latency, 
+stimulusnumber, stimulusitem, expressions.da, expressions.db, expressions.d, expressions.percentcorrect]
+/ separatefiles = true
+</data>
+
+--摘要数据 summary data--
+script.startdate:					脚本运行的日期
+script.starttime:					脚本运行的开始时间
+script.subjectid:					被试编号
+script.groupid:						组别编号
+script.elapsedtime:					脚本运行的时长(ms)
+/completed:							0 = 脚本未完成; 1 = 脚本完成(所有条件均运行)
+
+
+expressions.da:						第一个block的d分数
+expressions.db:						第二个block的d分数
+expressions.d:						总d分数
+/ percentcorrect:       			测验试次（用于计算d分数的试次）中初始反应的总正确率
+
+<summarydata >
+/ file = "IAT_summary.iqdat"
+/ columns = [script.startdate, script.starttime, script.subjectid, script.groupid, script.elapsedtime, values.completed,
+expressions.da, expressions.db, expressions.d, expressions.percentcorrect]
+</summarydata>
+
+--性能摘要--
+
+<trial summary>
+/ stimulustimes = [0=summary]
+/ validresponse = (" ")
+/ recorddata = false
+/ ontrialbegin = [values.magnitude = "little to no"]
+/ ontrialbegin = [if( abs(expressions.d) > 0.15 ) values.magnitude = "a slight"]
+/ ontrialbegin = [if( abs(expressions.d) > 0.35 ) values.magnitude = "a moderate"]
+/ ontrialbegin = [if( abs(expressions.d) >= 0.65 ) values.magnitude = "a strong"]
+/ ontrialbegin = [if (expressions.d >= 0.0) expressions.preferred = item.targetALabel.1]
+/ ontrialbegin = [if (expressions.d < 0.0) expressions.preferred = item.targetBLabel.1]
+/ ontrialbegin = [if (expressions.d < 0.0) expressions.notpreferred= item.targetALabel.1]
+/ ontrialbegin = [if (expressions.d >= 0.0) expressions.notpreferred= item.targetBLabel.1]
+</trial>
+
+<text summary>
+/ items = ("Your IAT score (D) was <% expressions.d %>, which suggests <% values.magnitude %> automatic preference for <% expressions.preferred %> compared to <% expressions.notpreferred %>.~n~n~nPress the spacebar to complete this session.") 
+/ size = (60%, 60%)
+/ hjustify = left
+ </text>
+
+--任务指令刺激--
+
+<trial instructions>
+/ stimulustimes = [1=instructions, spacebar]
+/ correctresponse = (" ")
+/ errormessage = false
+/ recorddata = false
+</trial>
+
+<text instructions>
+/ items = instructions
+/ hjustify = left
+/ size = (90%, 60%)
+/ position = (50%, 85%)
+/ valign = bottom
+/ select = sequence
+/ resetinterval = 20
+</text>
+
+<item instructions>
+/ 1 = "Put your middle or index fingers on the E and I keys of your keyboard. Words representing the categories at the top will appear one-by-one in the middle of the screen. When the item belongs to a category on the left, press the E key; when the item belongs to a category on the right, press the I key. Items belong to only one category. If you make an error, an X will appear - fix the error by hitting the other key.
+
+This is a timed sorting task. GO AS FAST AS YOU CAN while making as few mistakes as possible. Going too slow or making too many errors will result in an uninterpretable score. This task will take about 5 minutes to complete."
+/ 2 = "See above, the categories have changed. The items for sorting have changed as well. The rules, however, are the same.
+
+When the item belongs to a category on the left, press the E key; when the item belongs to a category on the right, press the I key. Items belong to only one category. An X appears after an error - fix the error by hitting the other key. GO AS FAST AS YOU CAN."
+/ 3 = "See above, the four categories you saw separately now appear together. Remember, each item belongs to only one group. For example, if the categories <%item.targetalabel.item(1)%> and <%item.attributealabel.item(1)%> appear on separate sides above - words meaning <%item.targetalabel.item(1)%> would go in the <%item.targetalabel.item(1)%> category, not the <%item.attributealabel.item(1)%> category.
+
+The green and white labels and items may help to identify the appropriate category. Use the E and I keys to categorize items into four groups left and right, and correct errors by hitting the other key."
+
+/ 4 = "Sort the same four categories again. Remember to go as fast as you can while making as few mistakes as possible.
+
+The green and white labels and items may help to identify the appropriate category. Use the E and I keys to categorize items into the four groups left and right, and correct errors by hitting the other key."
+/ 5 = "Notice above, there are only two cateogries and they have switched positions. The concept that was previously on the left is now on the right, and the concept that was on the right is now on the left. Practice this new configuration.
+
+Use the E and I keys to catgorize items left and right, and correct errors by hitting the other key."
+/ 6 = "See above, the four categories now appear together in a new configuration. Remember, each item belongs to only one group.
+
+The green and white labels and items may help to identify the appropriate category. Use the E and I keys to categorize items into the four groups left and right, and correct errors by hitting the other key."
+/ 7 = "Sort the same four categories again. Remember to go as fast as you can while making as few mistakes as possible.
+
+The green and white labels and items may help to identify the appropriate category. Use the E and I keys to categorize items into the four groups left and right, and correct errors by hitting the other key."
+</item>
+
+<text spacebar>
+/ items = ("Press the SPACE BAR to begin.")
+/ position = (50%, 95%)
+/ valign = bottom
+</text>
+
+<text attributeA>
+/ items = attributeA
+/ fontstyle = ("Arial", 5%)
+/ txcolor = (0, 255, 0)
+</text>
+
+<text attributeB>
+/ items = attributeB
+/ fontstyle = ("Arial", 5%)
+/ txcolor = (0, 255, 0)
+</text>
+
+<text targetB>
+/ items = targetB
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text targetA>
+/ items = targetA
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text error>
+/ position = (50%, 75%)
+/ items = ("X")
+/ color = (255, 0, 0)
+/ fontstyle = ("Arial", 10%, true)
+</text>
+
+<text attributeAleft>
+/ items = attributeAlabel
+/ valign = top
+/ halign = left
+/ position = (5%, 5%)
+/ txcolor = (0, 255, 0)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text attributeBright>
+/ items = attributeBlabel
+/ valign = top
+/ halign = right
+/ position = (95%, 5%)
+/ txcolor = (0, 255, 0)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text attributeAleftmixed>
+/ items = attributeAlabel
+/ valign = top
+/ halign = left
+/ position = (5%, 19%)
+/ txcolor = (0, 255, 0)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text attributeBrightmixed>
+/ items = attributeBlabel
+/ valign = top
+/ halign = right
+/ position = (95%, 19%)
+/ txcolor = (0, 255, 0)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text targetBleft>
+/ items = targetBlabel
+/ valign = top
+/ halign = left	
+/ position = (5%, 5%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text targetBright>
+/ items = targetBlabel
+/ valign = top
+/ halign = right
+/ position = (95%, 5%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text targetAleft>
+/ items = targetAlabel
+/ valign = top
+/ halign = left
+/ position = (5%, 5%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text targetAright>
+/ items = targetAlabel
+/ valign = top
+/ halign = right
+/ position = (95%, 5%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text orleft>
+/ items = ("or")
+/ valign = top
+/ halign = left
+/ position = (5%, 12%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text orright>
+/ items = ("or")
+/ valign = top
+/ halign = right
+/ position = (95%, 12%)
+/ fontstyle = ("Arial", 5%)
+</text>
+
+
+--Trials--
+
+
+<trial attributeA>
+/ validresponse = ("E", "I")
+/ correctresponse = ("E")
+/ stimulusframes = [1 = attributeA]
+/ posttrialpause = 250
+</trial>
+
+<trial attributeB>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ stimulusframes = [1 = attributeB]
+/ posttrialpause = 250
+</trial>
+
+
+<trial targetBleft>
+/ validresponse = ("E", "I")
+/ correctresponse = ("E")
+/ stimulusframes = [1 = targetB]
+/ posttrialpause = 250
+</trial>
+
+<trial targetBright>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ stimulusframes = [1 = targetB]
+/ posttrialpause = 250
+</trial>
+
+<trial targetAleft>
+/ validresponse = ("E", "I")
+/ correctresponse = ("E")
+/ stimulusframes = [1 = targetA]
+/ posttrialpause = 250
+</trial>
+
+<trial targetAright>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ stimulusframes = [1 = targetA]
+/ posttrialpause = 250
+</trial>
+
+
+--Blocks--
+
+
+<block attributepractice>
+/ bgstim = (attributeAleft, attributeBright)
+/ trials = [1=instructions;2-21 = random(attributeA, attributeB)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+</block>
+
+<block targetcompatiblepractice>
+/ bgstim = (targetAleft, targetBright)
+/ trials = [1=instructions;2-21 = random(targetAleft, targetBright)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+</block>
+
+<block targetincompatiblepractice>
+/ bgstim = (targetAright, targetBleft)
+/ trials = [1=instructions;2-21 = random(targetAright, targetBleft)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+</block>
+
+<block targetcompatiblepracticeswitch>
+/ bgstim = (targetAleft, targetBright)
+/ trials = [1=instructions;2-41 = random(targetAleft, targetBright)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+</block>
+
+<block targetincompatiblepracticeswitch>
+/ bgstim = (targetAright, targetBleft)
+/ trials = [1=instructions;2-41 = random(targetAright, targetBleft)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+</block>
+
+<block compatibletest1>
+/ bgstim = (targetAleft, orleft, attributeAleftmixed, targetBright, orright, attributeBrightmixed)
+/ trials = [1=instructions;
+  3,5,7,9,11,13,15,17,19,21= random(targetAleft, targetBright);
+  2,4,6,8,10,12,14,16,18,20 = random(attributeA, attributeB)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+/ ontrialend = [if(block.compatibletest1.latency  <= 10000 && block.compatibletest1.currenttrialnumber != 1 ) values.sum1a =  values.sum1a + block.compatibletest1.latency]
+/ ontrialend = [if(block.compatibletest1.latency  <= 10000 && block.compatibletest1.currenttrialnumber != 1 ) values.n1a +=  1]
+/ ontrialend = [if(block.compatibletest1.latency  <= 10000 && block.compatibletest1.currenttrialnumber != 1 ) values.ss1a =  values.ss1a + (block.compatibletest1.latency * block.compatibletest1.latency)]
+/ ontrialend = [if(block.compatibletest1.latency  <= 10000 && block.compatibletest1.currenttrialnumber != 1 ) values.n_correct += block.compatibletest1.correct]
+</block>
+
+<block compatibletest2>
+/ bgstim = (targetAleft, orleft, attributeAleftmixed, targetBright, orright, attributeBrightmixed)
+/ trials = [
+  2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40 = random(targetAleft, targetBright);
+  1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39 = random(attributeA, attributeB)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+/ ontrialend = [if(block.compatibletest2.latency  <= 10000) values.sum1b =  values.sum1b + block.compatibletest2.latency]
+/ ontrialend = [if(block.compatibletest2.latency  <= 10000) values.n1b += 1]
+/ ontrialend = [if(block.compatibletest2.latency  <= 10000) values.ss1b =  values.ss1b + (block.compatibletest2.latency * block.compatibletest2.latency)]
+/ ontrialend = [if(block.compatibletest2.latency  <= 10000) values.n_correct += block.compatibletest2.correct]
+</block>
+
+<block incompatibletest1>
+/ bgstim = (targetBleft, orleft, attributeAleftmixed, targetAright, orright, attributeBrightmixed)
+/ trials = [1=instructions;
+  3,5,7,9,11,13,15,17,19,21 = random(targetBleft, targetAright);
+  2,4,6,8,10,12,14,16,18,20 = random(attributeA, attributeB)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+/ ontrialend = [if(block.incompatibletest1.latency  <= 10000 && block.incompatibletest1.currenttrialnumber != 1) values.sum2a =  values.sum2a + block.incompatibletest1.latency]
+/ ontrialend = [if(block.incompatibletest1.latency  <= 10000 && block.incompatibletest1.currenttrialnumber != 1 ) values.n2a +=  1]
+/ ontrialend = [if(block.incompatibletest1.latency  <= 10000 && block.incompatibletest1.currenttrialnumber != 1 ) values.ss2a =  values.ss2a + (block.incompatibletest1.latency * block.incompatibletest1.latency)]
+/ ontrialend = [if(block.incompatibletest1.latency  <= 10000 && block.incompatibletest1.currenttrialnumber != 1 ) values.n_correct += block.incompatibletest1.correct]
+</block>
+
+<block incompatibletest2>
+/ bgstim = (targetBleft, orleft, attributeAleftmixed, targetAright, orright, attributeBrightmixed)
+/ trials = [
+  2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40 = random(targetBleft, targetAright);
+  1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39 = random(attributeA, attributeB)]
+/ errormessage = true(error,200)
+/ responsemode = correct
+/ ontrialend = [if(block.incompatibletest2.latency  <= 10000) values.sum2b =  values.sum2b + block.incompatibletest2.latency]
+/ ontrialend = [if(block.incompatibletest2.latency  <= 10000) values.n2b +=  1]
+/ ontrialend = [if(block.incompatibletest2.latency  <= 10000) values.ss2b =  values.ss2b + (block.incompatibletest2.latency * block.incompatibletest2.latency)]
+/ ontrialend = [if(block.incompatibletest2.latency  <= 10000) values.n_correct += block.incompatibletest2.correct]
+</block>
+
+
+<block compatibletestinstructions>
+/ bgstim = (targetAleft, orleft, attributeAleftmixed, targetBright, orright, attributeBrightmixed)
+/ trials = [1=instructions]
+/ recorddata = false
+</block>
+
+<block incompatibletestinstructions>
+/ bgstim = (targetBleft, orleft, attributeAleftmixed, targetAright, orright, attributeBrightmixed)
+/ trials = [1=instructions]
+/ recorddata = false
+</block>
+
+<block summary>
+/skip = [values.showsummaryfeedback == false]
+/ trials = [1=summary]
+/ recorddata = false
+</block>
+
+
+--Experiment--
+组别编号决定组的分别
+
+
+<expt>
+/subjects = (1 of 2)
+/groupassignment = groupnumber
+/ blocks = [1=targetcompatiblepractice; 2=attributepractice; 3=compatibletest1; 4=compatibletestinstructions;
+				5=compatibletest2; 6=targetincompatiblepractice; 7=incompatibletest1; 8=incompatibletestinstructions;
+				9=incompatibletest2; 10=summary]
+/onexptend = [values.completed = 1]
+</expt>
+
+<expt>
+/subjects = (2 of 2)
+/groupassignment = groupnumber
+/ blocks = [1=targetincompatiblepractice; 2=attributepractice; 3=incompatibletest1; 4=incompatibletestinstructions;
+				5=incompatibletest2; 6=targetcompatiblepractice; 7=compatibletest1; 8=compatibletestinstructions; 
+				9=compatibletest2; 10=summary]
+/onexptend = [values.completed = 1]
+</expt>
